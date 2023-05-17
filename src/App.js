@@ -11,13 +11,13 @@ import PhotoContainer from './components/PhotoContainer.js';
 import apiKey from './config.js'
 import './css/index.css';
 
-console.log(apiKey);
-
 function App() {
   const [photos, setPhotos] = useState([]);
+  const [query, setQuery] = useState("");
+
   useEffect(() => {
   // Axios
-  axios.get('https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=99277c0f3ec693ba0aedf92a6e4e333c&tags=cats&per_page=24&format=json&nojsoncallback=1')
+  axios.get(`https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&tags=${query}&per_page=24&format=json&nojsoncallback=1`)
     .then(response => {
       // handle success
       setPhotos(response.data.photos.photo);
@@ -26,18 +26,23 @@ function App() {
       // handle error
       console.log("Error fetching and parsing the data", error);
     })
-  },[]);
+  },[query]);
+
+  const handleQueryChange = searchText => {
+    setQuery(searchText);
+  }
+
 
   return (
     <div className='container'>
-      <SearchForm />
+      <SearchForm changeQuery={handleQueryChange} />
       <Nav />
       <Routes>
         <Route path="cats" />
         <Route path="dogs" />
         <Route path="computers" />
       </Routes>
-      <PhotoContainer data={photos}/>
+      <PhotoContainer data={photos} query={query}/>
     </div>
   );
 }
