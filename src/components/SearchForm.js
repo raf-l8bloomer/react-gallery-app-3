@@ -4,7 +4,7 @@ const SearchForm = () => {
     return (
         <form className="search-form">
             <input type="search" name="search" placeholder="Search" required />
-            <button type="submit" class="search-button">
+            <button type="submit" className="search-button">
                 <svg 
                     fill="#fff" 
                     height="24" 
