@@ -16,17 +16,17 @@ function App() {
   const [query, setQuery] = useState("");
 
   useEffect(() => {
-  // Axios
-  axios.get(`https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&tags=${query}&per_page=24&format=json&nojsoncallback=1`)
-    .then(response => {
-      // handle success
-      setPhotos(response.data.photos.photo);
-    })
-    .catch(error => {
-      // handle error
-      console.log("Error fetching and parsing the data", error);
-    })
-  },[query]);
+    // Axios
+    axios.get(`https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&tags=${query}&per_page=24&format=json&nojsoncallback=1`)
+      .then(response => {
+        // handle success
+        setPhotos(response.data.photos.photo);
+      })
+      .catch(error => {
+        // handle error
+        console.log("Error fetching and parsing the data", error);
+      })
+  }, [query]);
 
   const handleQueryChange = searchText => {
     setQuery(searchText);
@@ -38,11 +38,11 @@ function App() {
       <SearchForm changeQuery={handleQueryChange} />
       <Nav />
       <Routes>
-        <Route path="cats" />
+        <Route path="cats" element={<PhotoContainer data={photos} query={"cats"} />} />
         <Route path="dogs" />
         <Route path="computers" />
       </Routes>
-      <PhotoContainer data={photos} query={query}/>
+      <PhotoContainer data={photos} query={query} />
     </div>
   );
 }

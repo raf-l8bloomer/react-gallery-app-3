@@ -17,6 +17,4 @@ const PhotoContainer = (props) => {
     );
 };
 
-
-
 export default PhotoContainer;
